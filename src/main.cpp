@@ -1,8 +1,14 @@
-#include "main.h"
+#include "./include/main.h"
+
+cv::Mat originStereoImg[2];
+cv::Mat originLidarDepthImg[2];
+std::vector<cv::Rect> trackletVec;
+std::vector<float> estimatedDistanceVec;
+std::vector<float> GTDistanceVec;
 
 int main(int argc, char* argv[]) {
 
-	#if (!LINUX_MODE)
+	#if (LINUX_MODE == true)
 	    struct sigaction action = {};
 	    action.sa_handler = sig_int_handler;
 
@@ -13,6 +19,14 @@ int main(int argc, char* argv[]) {
 	    sigaction(SIGTERM, &action, NULL); // kill command
 	    sigaction(SIGSTOP, &action, NULL); // kill command
 	#endif
+	
+
+	while (1) {
+
+		trackletVec.clear();
+		estimatedDistanceVec.clear();
+		GTDistanceVec.clear();
+	}
 	
 	std::cout << "Hello, WTF!" << std::endl;
 
