@@ -17,6 +17,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 
 void readImg(cv::Mat originStereoImg[2]);
+void readLidarData(void);
 void readTracklet(const char *_trackletPATH,const int _frameNum, std::vector<std::pair<std::string, cv::Rect>> &_trackletVec);
 
 #endif //KITTI_PARSER_PARSER_H

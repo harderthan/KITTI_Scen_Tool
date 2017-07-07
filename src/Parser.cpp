@@ -16,13 +16,21 @@ void readImg(char *Imgpath, char *rightImgPath, cv::Mat originStereoImg[2]) {
 1		| rotation_y
 1		| score
 */
+void readLidarData(const char *_lidarPATH, const int _frameNum) {
+	FILE *lidar_file;
+	lidar_file = fopen(_lidarPATH, "rb");
+
+	int num = 1000000;
+	float *data = (float*)malloc(num*sizeof(float));
+}
+
 void readTracklet(const char *_trackletPATH, const int _frameNum, std::vector<std::pair<std::string, cv::Rect>> &_trackletVec) {
  	_trackletVec.clear();
 
 	std::string type;
 	float leftTopX, leftTopY, rightBotX, rightBotY;
 
-	std::FILE *tracklet_file = fopen(_trackletPATH, "r+");
+	std::FILE *tracklet_file = fopen(_trackletPATH, "rb");
 	char szBuffer[512];
 	if (!tracklet_file) {
 		std::cerr << "Could not open or find the Tracklet text file" << std::endl;
@@ -64,24 +72,6 @@ void readTracklet(const char *_trackletPATH, const int _frameNum, std::vector<st
 				cv::Rect(leftTopX, leftTopY, rightBotX - leftTopX, rightBotY - leftTopY)));
 		}
 	}
-	/*
-	while (!tracklet_file.eof()) {
-		
-		tracklet_file >> type;
-		tracklet_file >> trash;
-		tracklet_file >> trash;
-   		tracklet_file >> trash;
-		tracklet_file >> leftTopX >> leftTopY >> rightBotX >> rightBotY;
-		tracklet_file >> trash >> trash >> trash;
-		tracklet_file >> trash >> trash >> trash;
-		tracklet_file >> trash;
-		tracklet_file >> trash;
-		tracklet_file >> trash;  // New line
-
-		_trackletVec.push_back(std::pair<std::string, cv::Rect>(type,
-			cv::Rect(leftTopX, leftTopY, rightBotX - leftTopX, leftTopY - rightBotY)));
-	}*/
-	
 	fclose(tracklet_file);
 }
 
