@@ -5,6 +5,7 @@
 #define LEFT_IMAGE_PATH  "../../../KITTI_Object_Dataset/data_object_image_2/training/image_2/%06d.png"
 #define RIGHT_IMAGE_PATH  "../../../KITTI_Object_Dataset/data_object_image_3/training/image_3/%06d.png"
 #define TRACKLET_PATH "../../../KITTI_Object_Dataset/data_object_label_2/training/label_2/%06d.txt"
+#define LIDAR_PACKET_PATH "../../../KITTI_Object_Dataset/data_object_velodyne/training/velodyne/%06d.bin"
 
 cv::Mat originStereoImg[2];
 cv::Mat originLidarDepthImg[2];
@@ -15,6 +16,7 @@ std::vector<float> GTDistanceVec;
 char leftImgPath[200];
 char rightImgPath[200];
 char trackletPath[200];
+char lidarPacketPath[200];
 
 int main(int argc, char* argv[]) {
 
@@ -49,7 +51,8 @@ int main(int argc, char* argv[]) {
 				continue;
 			}
 
-			//  ReadLidarData();
+			sprintf(lidarPacketPath, TRACKLET_PATH, frameNum);
+			readLidarData(lidarPacketPath, frameNum);
 
 			sprintf(trackletPath, TRACKLET_PATH, frameNum);
 			readTracklet(trackletPath, frameNum, trackletVec);

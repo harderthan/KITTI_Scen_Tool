@@ -17,11 +17,31 @@ void readImg(char *Imgpath, char *rightImgPath, cv::Mat originStereoImg[2]) {
 1		| score
 */
 void readLidarData(const char *_lidarPATH, const int _frameNum) {
+	std::vector<st_Point> points;
+	int32_t lidarPacketSize = 1000000;
+	float *lidarPacket = (float*)malloc(lidarPacketSize*sizeof(float));
+	
+	float *px = lidarPacket + 0;
+	float *py = lidarPacket + 1;
+	float *pz = lidarPacket + 2;
+	float *pr = lidarPacket + 3;
+	
 	FILE *lidar_file;
 	lidar_file = fopen(_lidarPATH, "rb");
+	if (!lidar_file) {
+		std::cerr << "Could not open or find the Tracklet text file" << std::endl;
+		fclose(lidar_file);
+		return;
+	}
 
-	int num = 1000000;
-	float *data = (float*)malloc(num*sizeof(float));
+	lidarPacketSize = fread(lidarPacket, sizeof(float), lidarPacketSize, lidar_file) / 4;
+	for (int32_t i = 0; i<lidarPacketSize; i++) {
+		points.push_back(st_Point(*px, *py, *pz, *pr));
+		//std::cout << (float) *px << ", " << *py << ", " << *pz << ", " << *pr << std::endl;
+		px += 4; py += 4; pz += 4; pr += 4;
+	}
+
+	fclose(lidar_file);
 }
 
 void readTracklet(const char *_trackletPATH, const int _frameNum, std::vector<std::pair<std::string, cv::Rect>> &_trackletVec) {
