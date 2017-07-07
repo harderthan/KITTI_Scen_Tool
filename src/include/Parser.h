@@ -16,6 +16,14 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
+namespace  {
+	enum CAMERA
+	{
+		LEFT = 0,
+		RIGHT = 1
+	};
+}
+
 typedef struct st_Point {
 	float px;
 	float py;
@@ -52,5 +60,9 @@ void readImg(cv::Mat originStereoImg[2]);
 void readLidarData(const char *_lidarPATH, const int _frameNum, std::vector<st_Point> &_lidarPoints);
 void readTracklet(const char *_trackletPATH, const int _frameNum, std::vector<std::pair<std::string, cv::Rect>> &_trackletVec);
 void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibration &_st_Calibration);
+
+
+void project(const cv::Mat _inputImg[], cv::Mat _projectedImg[], const std::vector<st_Point> &_lidarPoints, const st_Calibration &_st_Calibration);
+void project(const cv::Mat _inputImg[], cv::Mat _projectedImg[], const std::vector<st_Point> &_lidarPoints, const st_Calibration &_st_Calibration, cv::Rect imgROI);
 
 #endif //KITTI_PARSER_PARSER_H

@@ -298,3 +298,27 @@ void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibrati
 	}
 	fclose(tracklet_file);
 }
+
+cv::Vec3d projectFormula(cv::Vec3d &_unprojectedPt, const st_Calibration &_st_Calibration) {
+	cv::Mat P = _st_Calibration.P2; // Left Camera = P2, Right Camera = P3
+
+	cv::Mat registration_matrix = P * _st_Calibration.R0_Rect* _st_Calibration.Tr_velo_to_cam;
+	cv::Mat proj = (registration_matrix * cv::Mat(cv::Vec4d(_unprojectedPt[0], _unprojectedPt[1], _unprojectedPt[2], 1)));
+	
+	double z = proj.at<double>(2);
+	double x = proj.at<double>(0) / z;
+	double y = proj.at<double>(1) / z;
+	return cv::Vec3d(x, y, 100 * z);
+}
+
+void project(const cv::Mat _inputImg[], cv::Mat _projectedImg[], const std::vector<st_Point> &_lidarPoints, const st_Calibration &_st_Calibration) {
+	cv::Vec3d tmp; 
+	_projectedImg[CAMERA::LEFT] = cv::Mat(cv::Size(_inputImg[CAMERA::LEFT].cols, _inputImg[CAMERA::LEFT].rows), CV_8UC1).clone();
+	
+	for (auto &iter : _lidarPoints) {
+		tmp = projectFormula(cv::Vec3d(iter.px, iter.py, iter.pz), _st_Calibration);
+	}
+}
+void project(const cv::Mat &_inputImg, cv::Mat &_projectedImg, const std::vector<st_Point> &_lidarPoints, const st_Calibration &_st_Calibration, cv::Rect imgROI) {
+
+}
