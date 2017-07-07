@@ -31,7 +31,7 @@ typedef struct st_Point {
 }st_Point;
 
 void readImg(cv::Mat originStereoImg[2]);
-void readLidarData(const char *_lidarPATH, const int _frameNum);
+void readLidarData(const char *_lidarPATH, const int _frameNum, std::vector<st_Point> &_lidarPoints);
 void readTracklet(const char *_trackletPATH, const int _frameNum, std::vector<std::pair<std::string, cv::Rect>> &_trackletVec);
 
 #endif //KITTI_PARSER_PARSER_H

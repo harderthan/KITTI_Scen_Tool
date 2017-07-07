@@ -16,8 +16,8 @@ void readImg(char *Imgpath, char *rightImgPath, cv::Mat originStereoImg[2]) {
 1		| rotation_y
 1		| score
 */
-void readLidarData(const char *_lidarPATH, const int _frameNum) {
-	std::vector<st_Point> points;
+void readLidarData(const char *_lidarPATH, const int _frameNum, std::vector<st_Point> &_lidarPoints) {
+	
 	int32_t lidarPacketSize = 1000000;
 	float *lidarPacket = (float*)malloc(lidarPacketSize*sizeof(float));
 	
@@ -36,7 +36,7 @@ void readLidarData(const char *_lidarPATH, const int _frameNum) {
 
 	lidarPacketSize = fread(lidarPacket, sizeof(float), lidarPacketSize, lidar_file) / 4;
 	for (int32_t i = 0; i<lidarPacketSize; i++) {
-		points.push_back(st_Point(*px, *py, *pz, *pr));
+		_lidarPoints.push_back(st_Point(*px, *py, *pz, *pr));
 		//std::cout << (float) *px << ", " << *py << ", " << *pz << ", " << *pr << std::endl;
 		px += 4; py += 4; pz += 4; pr += 4;
 	}

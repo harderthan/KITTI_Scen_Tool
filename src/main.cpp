@@ -9,6 +9,7 @@
 
 cv::Mat originStereoImg[2];
 cv::Mat originLidarDepthImg[2];
+std::vector<st_Point> lidarPoints;
 std::vector<std::pair<std::string, cv::Rect>> trackletVec;
 std::vector<float> estimatedDistanceVec;
 std::vector<float> GTDistanceVec;
@@ -52,7 +53,7 @@ int main(int argc, char* argv[]) {
 			}
 
 			sprintf(lidarPacketPath, TRACKLET_PATH, frameNum);
-			readLidarData(lidarPacketPath, frameNum);
+			readLidarData(lidarPacketPath, frameNum, lidarPoints);
 
 			sprintf(trackletPath, TRACKLET_PATH, frameNum);
 			readTracklet(trackletPath, frameNum, trackletVec);
