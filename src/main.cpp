@@ -1,23 +1,28 @@
-
 #include "./include/main.h"
-#include "./include/Parser.h"
+
 
 #define LEFT_IMAGE_PATH  "../../../KITTI_Object_Dataset/data_object_image_2/training/image_2/%06d.png"
 #define RIGHT_IMAGE_PATH  "../../../KITTI_Object_Dataset/data_object_image_3/training/image_3/%06d.png"
-#define TRACKLET_PATH "../../../KITTI_Object_Dataset/data_object_label_2/training/label_2/%06d.txt"
 #define LIDAR_PACKET_PATH "../../../KITTI_Object_Dataset/data_object_velodyne/training/velodyne/%06d.bin"
+#define TRACKLET_PATH "../../../KITTI_Object_Dataset/data_object_label_2/training/label_2/%06d.txt"
+#define CALIBRATION_PARAM_PATH "../../../KITTI_Object_Dataset/data_object_calib/training/calib/%06d.txt"
 
+// Input Data
 cv::Mat originStereoImg[2];
-cv::Mat originLidarDepthImg[2];
 std::vector<st_Point> lidarPoints;
 std::vector<std::pair<std::string, cv::Rect>> trackletVec;
+st_Calibration st_calib;
+
+// Output Data
+cv::Mat originLidarDepthImg[2];
 std::vector<float> estimatedDistanceVec;
 std::vector<float> GTDistanceVec;
 
 char leftImgPath[200];
 char rightImgPath[200];
-char trackletPath[200];
 char lidarPacketPath[200];
+char trackletPath[200];
+char calibParamPath[200];
 
 int main(int argc, char* argv[]) {
 
@@ -52,11 +57,14 @@ int main(int argc, char* argv[]) {
 				continue;
 			}
 
-			sprintf(lidarPacketPath, TRACKLET_PATH, frameNum);
+			sprintf(lidarPacketPath, LIDAR_PACKET_PATH, frameNum);
 			readLidarData(lidarPacketPath, frameNum, lidarPoints);
 
 			sprintf(trackletPath, TRACKLET_PATH, frameNum);
 			readTracklet(trackletPath, frameNum, trackletVec);
+
+			sprintf(calibParamPath, CALIBRATION_PARAM_PATH, frameNum);
+			readCalibPram(calibParamPath, frameNum, st_calib);
 
 			// To Develope
 			cv::Mat showImg[2];
@@ -73,7 +81,7 @@ int main(int argc, char* argv[]) {
 
 			cv::imshow("leftImg", showImg[0]);
 			cv::imshow("rightImg", showImg[1]);
-			int key = cv::waitKey(0);
+			int key = cv::waitKey(1);
 		}
 
 		trackletVec.clear();

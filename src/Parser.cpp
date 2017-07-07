@@ -1,8 +1,5 @@
 ﻿#include "./include/Parser.h"
 
-void readImg(char *Imgpath, char *rightImgPath, cv::Mat originStereoImg[2]) {
-
-}
 
 /*  Valus	| Name
 -------------------
@@ -95,3 +92,209 @@ void readTracklet(const char *_trackletPATH, const int _frameNum, std::vector<st
 	fclose(tracklet_file);
 }
 
+void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibration &_st_Calibration) {
+	std::FILE *tracklet_file = fopen(_calibPramPATH, "rb");
+	char szBuffer[512];
+	if (!tracklet_file) {
+		std::cerr << "Could not open or find the Tracklet text file" << std::endl;
+		fclose(tracklet_file);
+		return;
+	}
+
+	while (!feof(tracklet_file))
+	{
+		fscanf(tracklet_file, "%s", szBuffer);
+
+		if (!strcmp("P0:", szBuffer))
+		{
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P0.at<double>(0, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P0.at<double>(0, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P0.at<double>(0, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P0.at<double>(1, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P0.at<double>(1, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P0.at<double>(1, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P0.at<double>(2, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P0.at<double>(2, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P0.at<double>(2, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P0.at<double>(3, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P0.at<double>(3, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P0.at<double>(3, 2) = atof(szBuffer);
+			continue;
+		}
+		else if (!strcmp("P1:", szBuffer))
+		{
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P1.at<double>(0, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P1.at<double>(0, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P1.at<double>(0, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P1.at<double>(1, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P1.at<double>(1, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P1.at<double>(1, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P1.at<double>(2, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P1.at<double>(2, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P1.at<double>(2, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P1.at<double>(3, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P1.at<double>(3, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P1.at<double>(3, 2) = atof(szBuffer);
+			continue;
+		}
+		else if (!strcmp("P2:", szBuffer))
+		{
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P2.at<double>(0, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P2.at<double>(0, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P2.at<double>(0, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P2.at<double>(1, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P2.at<double>(1, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P2.at<double>(1, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P2.at<double>(2, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P2.at<double>(2, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P2.at<double>(2, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P2.at<double>(3, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P2.at<double>(3, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P2.at<double>(3, 2) = atof(szBuffer);
+			continue;
+		}
+		else if (!strcmp("P3:", szBuffer))
+		{
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P3.at<double>(0, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P3.at<double>(0, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P3.at<double>(0, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P3.at<double>(1, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P3.at<double>(1, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P3.at<double>(1, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P3.at<double>(2, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P3.at<double>(2, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P3.at<double>(2, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P3.at<double>(3, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P3.at<double>(3, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P3.at<double>(3, 2) = atof(szBuffer);
+			continue;
+		}
+		else if (!strcmp("R0_rect:", szBuffer))
+		{
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.R0_Rect.at<double>(0, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.R0_Rect.at<double>(0, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.R0_Rect.at<double>(0, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.R0_Rect.at<double>(1, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.R0_Rect.at<double>(1, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.R0_Rect.at<double>(1, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.R0_Rect.at<double>(2, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.R0_Rect.at<double>(2, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.R0_Rect.at<double>(2, 2) = atof(szBuffer);
+			continue;
+		}
+		else if (!strcmp("Tr_velo_to_cam:", szBuffer))
+		{
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_velo_to_cam.at<double>(0, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_velo_to_cam.at<double>(0, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_velo_to_cam.at<double>(0, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_velo_to_cam.at<double>(1, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_velo_to_cam.at<double>(1, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_velo_to_cam.at<double>(1, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_velo_to_cam.at<double>(2, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_velo_to_cam.at<double>(2, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_velo_to_cam.at<double>(2, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_velo_to_cam.at<double>(3, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_velo_to_cam.at<double>(3, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_velo_to_cam.at<double>(3, 2) = atof(szBuffer);
+			continue;
+		}
+		else if (!strcmp("Tr_imu_to_velo:", szBuffer))
+		{
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_imu_to_velo.at<double>(0, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_imu_to_velo.at<double>(0, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_imu_to_velo.at<double>(0, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_imu_to_velo.at<double>(1, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_imu_to_velo.at<double>(1, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_imu_to_velo.at<double>(1, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_imu_to_velo.at<double>(2, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_imu_to_velo.at<double>(2, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_imu_to_velo.at<double>(2, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_imu_to_velo.at<double>(3, 0) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_imu_to_velo.at<double>(3, 1) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_imu_to_velo.at<double>(3, 2) = atof(szBuffer);
+			continue;
+		}
+	}
+	fclose(tracklet_file);
+}
