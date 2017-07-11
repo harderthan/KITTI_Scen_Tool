@@ -114,11 +114,15 @@ void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibrati
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P0.at<double>(0, 2) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P0.at<double>(0, 3) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P0.at<double>(1, 0) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P0.at<double>(1, 1) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P0.at<double>(1, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P0.at<double>(1, 3) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P0.at<double>(2, 0) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
@@ -126,11 +130,7 @@ void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibrati
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P0.at<double>(2, 2) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
-			_st_Calibration.P0.at<double>(3, 0) = atof(szBuffer);
-			fscanf(tracklet_file, "%s", szBuffer);
-			_st_Calibration.P0.at<double>(3, 1) = atof(szBuffer);
-			fscanf(tracklet_file, "%s", szBuffer);
-			_st_Calibration.P0.at<double>(3, 2) = atof(szBuffer);
+			_st_Calibration.P0.at<double>(2, 3) = atof(szBuffer);
 			continue;
 		}
 		else if (!strcmp("P1:", szBuffer))
@@ -142,11 +142,15 @@ void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibrati
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P1.at<double>(0, 2) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P1.at<double>(0, 3) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P1.at<double>(1, 0) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P1.at<double>(1, 1) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P1.at<double>(1, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P1.at<double>(1, 3) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P1.at<double>(2, 0) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
@@ -154,11 +158,7 @@ void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibrati
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P1.at<double>(2, 2) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
-			_st_Calibration.P1.at<double>(3, 0) = atof(szBuffer);
-			fscanf(tracklet_file, "%s", szBuffer);
-			_st_Calibration.P1.at<double>(3, 1) = atof(szBuffer);
-			fscanf(tracklet_file, "%s", szBuffer);
-			_st_Calibration.P1.at<double>(3, 2) = atof(szBuffer);
+			_st_Calibration.P1.at<double>(2, 3) = atof(szBuffer);
 			continue;
 		}
 		else if (!strcmp("P2:", szBuffer))
@@ -170,11 +170,15 @@ void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibrati
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P2.at<double>(0, 2) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P2.at<double>(0, 3) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P2.at<double>(1, 0) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P2.at<double>(1, 1) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P2.at<double>(1, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P2.at<double>(1, 3) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P2.at<double>(2, 0) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
@@ -182,11 +186,7 @@ void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibrati
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P2.at<double>(2, 2) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
-			_st_Calibration.P2.at<double>(3, 0) = atof(szBuffer);
-			fscanf(tracklet_file, "%s", szBuffer);
-			_st_Calibration.P2.at<double>(3, 1) = atof(szBuffer);
-			fscanf(tracklet_file, "%s", szBuffer);
-			_st_Calibration.P2.at<double>(3, 2) = atof(szBuffer);
+			_st_Calibration.P2.at<double>(2, 3) = atof(szBuffer);
 			continue;
 		}
 		else if (!strcmp("P3:", szBuffer))
@@ -198,11 +198,15 @@ void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibrati
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P3.at<double>(0, 2) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P3.at<double>(0, 3) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P3.at<double>(1, 0) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P3.at<double>(1, 1) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P3.at<double>(1, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.P3.at<double>(1, 3) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P3.at<double>(2, 0) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
@@ -210,11 +214,7 @@ void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibrati
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.P3.at<double>(2, 2) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
-			_st_Calibration.P3.at<double>(3, 0) = atof(szBuffer);
-			fscanf(tracklet_file, "%s", szBuffer);
-			_st_Calibration.P3.at<double>(3, 1) = atof(szBuffer);
-			fscanf(tracklet_file, "%s", szBuffer);
-			_st_Calibration.P3.at<double>(3, 2) = atof(szBuffer);
+			_st_Calibration.P3.at<double>(2, 3) = atof(szBuffer);
 			continue;
 		}
 		else if (!strcmp("R0_rect:", szBuffer))
@@ -225,18 +225,23 @@ void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibrati
 			_st_Calibration.R0_Rect.at<double>(0, 1) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.R0_Rect.at<double>(0, 2) = atof(szBuffer);
+			_st_Calibration.R0_Rect.at<double>(0, 3) = 1;
+
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.R0_Rect.at<double>(1, 0) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.R0_Rect.at<double>(1, 1) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.R0_Rect.at<double>(1, 2) = atof(szBuffer);
+			_st_Calibration.R0_Rect.at<double>(1, 3) = 1;
+
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.R0_Rect.at<double>(2, 0) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.R0_Rect.at<double>(2, 1) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.R0_Rect.at<double>(2, 2) = atof(szBuffer);
+			_st_Calibration.R0_Rect.at<double>(2, 3) = 1;
 			continue;
 		}
 		else if (!strcmp("Tr_velo_to_cam:", szBuffer))
@@ -248,11 +253,17 @@ void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibrati
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.Tr_velo_to_cam.at<double>(0, 2) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_velo_to_cam.at<double>(0, 3) = atof(szBuffer);
+			
+			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.Tr_velo_to_cam.at<double>(1, 0) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.Tr_velo_to_cam.at<double>(1, 1) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.Tr_velo_to_cam.at<double>(1, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_velo_to_cam.at<double>(1, 3) = atof(szBuffer);
+			
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.Tr_velo_to_cam.at<double>(2, 0) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
@@ -260,11 +271,12 @@ void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibrati
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.Tr_velo_to_cam.at<double>(2, 2) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
-			_st_Calibration.Tr_velo_to_cam.at<double>(3, 0) = atof(szBuffer);
-			fscanf(tracklet_file, "%s", szBuffer);
-			_st_Calibration.Tr_velo_to_cam.at<double>(3, 1) = atof(szBuffer);
-			fscanf(tracklet_file, "%s", szBuffer);
-			_st_Calibration.Tr_velo_to_cam.at<double>(3, 2) = atof(szBuffer);
+			_st_Calibration.Tr_velo_to_cam.at<double>(2, 3) = atof(szBuffer);
+
+			_st_Calibration.Tr_velo_to_cam.at<double>(3, 0) = 1;
+			_st_Calibration.Tr_velo_to_cam.at<double>(3, 1) = 1;
+			_st_Calibration.Tr_velo_to_cam.at<double>(3, 2) = 1;
+			_st_Calibration.Tr_velo_to_cam.at<double>(3, 3) = 1;
 			continue;
 		}
 		else if (!strcmp("Tr_imu_to_velo:", szBuffer))
@@ -276,11 +288,15 @@ void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibrati
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.Tr_imu_to_velo.at<double>(0, 2) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_imu_to_velo.at<double>(0, 3) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.Tr_imu_to_velo.at<double>(1, 0) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.Tr_imu_to_velo.at<double>(1, 1) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.Tr_imu_to_velo.at<double>(1, 2) = atof(szBuffer);
+			fscanf(tracklet_file, "%s", szBuffer);
+			_st_Calibration.Tr_imu_to_velo.at<double>(1, 3) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.Tr_imu_to_velo.at<double>(2, 0) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
@@ -288,11 +304,7 @@ void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibrati
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.Tr_imu_to_velo.at<double>(2, 2) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
-			_st_Calibration.Tr_imu_to_velo.at<double>(3, 0) = atof(szBuffer);
-			fscanf(tracklet_file, "%s", szBuffer);
-			_st_Calibration.Tr_imu_to_velo.at<double>(3, 1) = atof(szBuffer);
-			fscanf(tracklet_file, "%s", szBuffer);
-			_st_Calibration.Tr_imu_to_velo.at<double>(3, 2) = atof(szBuffer);
+			_st_Calibration.Tr_imu_to_velo.at<double>(2, 3) = atof(szBuffer);
 			continue;
 		}
 	}
@@ -305,10 +317,14 @@ cv::Vec3d projectFormula(cv::Vec3d &_unprojectedPt, const st_Calibration &_st_Ca
 	cv::Mat registration_matrix = P * _st_Calibration.R0_Rect* _st_Calibration.Tr_velo_to_cam;
 	cv::Mat proj = (registration_matrix * cv::Mat(cv::Vec4d(_unprojectedPt[0], _unprojectedPt[1], _unprojectedPt[2], 1)));
 	
+	//double x = .25*proj.at<double>(0) / proj.at<double>(2) + 1224/2;
+	//double y = .25*proj.at<double>(1) / proj.at<double>(2) + 370/2;
 	double z = proj.at<double>(2);
 	double x = proj.at<double>(0) / z;
 	double y = proj.at<double>(1) / z;
-	return cv::Vec3d(x, y, 100 * z);
+	
+	std::cout <<  x << ", " << y << ", " << z << std::endl;
+	return cv::Vec3d(x, y, 100);
 }
 
 void project(const cv::Mat _inputImg[], cv::Mat _projectedImg[], const std::vector<st_Point> &_lidarPoints, const st_Calibration &_st_Calibration) {

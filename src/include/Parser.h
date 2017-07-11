@@ -46,13 +46,13 @@ typedef struct st_Calibration {
 	cv::Mat Tr_velo_to_cam;
 	cv::Mat Tr_imu_to_velo;
 	st_Calibration() {
-		P0 = cv::Mat::eye(4, 3, CV_64F);
-		P1 = cv::Mat::eye(4, 3, CV_64F);
-		P2 = cv::Mat::eye(4, 3, CV_64F);
-		P3 = cv::Mat::eye(4, 3, CV_64F);
-		R0_Rect = cv::Mat::eye(3, 3, CV_64F);
-		Tr_velo_to_cam = cv::Mat::eye(4, 3, CV_64F);
-		Tr_imu_to_velo = cv::Mat::eye(4, 3, CV_64F);
+		P0 = cv::Mat::eye(3, 4, CV_64F);
+		P1 = cv::Mat::eye(3, 4, CV_64F);
+		P2 = cv::Mat::eye(3, 4, CV_64F);
+		P3 = cv::Mat::eye(3, 4, CV_64F);
+		R0_Rect = cv::Mat::eye(4, 4, CV_64F);
+		Tr_velo_to_cam = cv::Mat::eye(4, 4, CV_64F);
+		Tr_imu_to_velo = cv::Mat::eye(4, 4, CV_64F);
 	}
 }st_Calibration;
 
