@@ -66,7 +66,7 @@ int main(int argc, char* argv[]) {
 			sprintf(calibParamPath, CALIBRATION_PARAM_PATH, frameNum);
 			readCalibPram(calibParamPath, frameNum, st_calib);
 
-			project(originStereoImg, originLidarDepthImg, lidarPoints, st_calib);
+			//project(originStereoImg, originLidarDepthImg, lidarPoints, st_calib);
 
 			// To Develope
 			cv::Mat showImg[2];
