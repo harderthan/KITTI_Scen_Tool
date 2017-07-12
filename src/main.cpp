@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
 
 	bool img_EOF = false;
 	while (!img_EOF) {
-		for (int frameNum = 1; img_EOF != true; frameNum++) {
+		for (int frameNum = 0; img_EOF != true; frameNum++) {
 			sprintf(leftImgPath, LEFT_IMAGE_PATH, frameNum);
 			originStereoImg[0] = cv::imread(leftImgPath);
 			if (!originStereoImg[0].data) {
@@ -69,9 +69,10 @@ int main(int argc, char* argv[]) {
 			project(originStereoImg, originLidarDepthImg, lidarPoints, st_calib);
 
 			// To Develope
-			cv::Mat showImg[2];
+			cv::Mat showImg[3];
 			showImg[0] = originStereoImg[0].clone();
 			showImg[1] = originStereoImg[1].clone();
+			showImg[2] = originLidarDepthImg[0].clone();
 
 			std::cout << "Tracklet Frame Num: \t" << frameNum << std::endl;
 			std::cout << "Number of Tracklet: \t" << trackletVec.size() << std::endl;
@@ -83,12 +84,20 @@ int main(int argc, char* argv[]) {
 
 			cv::imshow("leftImg", showImg[0]);
 			cv::imshow("rightImg", showImg[1]);
+			cv::imshow("depthmap", showImg[2]);
 			int key = cv::waitKey(1);
-		}
 
-		trackletVec.clear();
-		estimatedDistanceVec.clear();
-		GTDistanceVec.clear();
+			originStereoImg[0].release();
+			originStereoImg[1].release();
+			originLidarDepthImg[0].release();
+			originLidarDepthImg[1].release();
+			showImg[2].release();
+
+			lidarPoints.clear();
+			trackletVec.clear();
+			estimatedDistanceVec.clear();
+			GTDistanceVec.clear();
+		}
 	}
 	return 0;
 }

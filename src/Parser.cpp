@@ -32,6 +32,7 @@ void readLidarData(const char *_lidarPATH, const int _frameNum, std::vector<st_P
 	}
 
 	lidarPacketSize = fread(lidarPacket, sizeof(float), lidarPacketSize, lidar_file) / 4;
+	std::cout << lidarPacketSize << std::endl;
 	for (int32_t i = 0; i<lidarPacketSize; i++) {
 		_lidarPoints.push_back(st_Point(*px, *py, *pz, *pr));
 		//std::cout << (float) *px << ", " << *py << ", " << *pz << ", " << *pr << std::endl;
@@ -225,7 +226,7 @@ void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibrati
 			_st_Calibration.R0_Rect.at<double>(0, 1) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.R0_Rect.at<double>(0, 2) = atof(szBuffer);
-			_st_Calibration.R0_Rect.at<double>(0, 3) = 1;
+			//_st_Calibration.R0_Rect.at<double>(0, 3) = 1;
 
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.R0_Rect.at<double>(1, 0) = atof(szBuffer);
@@ -233,7 +234,7 @@ void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibrati
 			_st_Calibration.R0_Rect.at<double>(1, 1) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.R0_Rect.at<double>(1, 2) = atof(szBuffer);
-			_st_Calibration.R0_Rect.at<double>(1, 3) = 1;
+			//_st_Calibration.R0_Rect.at<double>(1, 3) = 1;
 
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.R0_Rect.at<double>(2, 0) = atof(szBuffer);
@@ -242,6 +243,7 @@ void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibrati
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.R0_Rect.at<double>(2, 2) = atof(szBuffer);
 			_st_Calibration.R0_Rect.at<double>(2, 3) = 1;
+
 			continue;
 		}
 		else if (!strcmp("Tr_velo_to_cam:", szBuffer))
@@ -254,7 +256,6 @@ void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibrati
 			_st_Calibration.Tr_velo_to_cam.at<double>(0, 2) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.Tr_velo_to_cam.at<double>(0, 3) = atof(szBuffer);
-			
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.Tr_velo_to_cam.at<double>(1, 0) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
@@ -263,7 +264,6 @@ void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibrati
 			_st_Calibration.Tr_velo_to_cam.at<double>(1, 2) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.Tr_velo_to_cam.at<double>(1, 3) = atof(szBuffer);
-			
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.Tr_velo_to_cam.at<double>(2, 0) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
@@ -272,10 +272,9 @@ void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibrati
 			_st_Calibration.Tr_velo_to_cam.at<double>(2, 2) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.Tr_velo_to_cam.at<double>(2, 3) = atof(szBuffer);
-
-			_st_Calibration.Tr_velo_to_cam.at<double>(3, 0) = 1;
-			_st_Calibration.Tr_velo_to_cam.at<double>(3, 1) = 1;
-			_st_Calibration.Tr_velo_to_cam.at<double>(3, 2) = 1;
+			_st_Calibration.Tr_velo_to_cam.at<double>(3, 0) = 0;
+			_st_Calibration.Tr_velo_to_cam.at<double>(3, 1) = 0;
+			_st_Calibration.Tr_velo_to_cam.at<double>(3, 2) = 0;
 			_st_Calibration.Tr_velo_to_cam.at<double>(3, 3) = 1;
 			continue;
 		}
@@ -305,6 +304,10 @@ void readCalibPram(const char *_calibPramPATH, const int _frameNum, st_Calibrati
 			_st_Calibration.Tr_imu_to_velo.at<double>(2, 2) = atof(szBuffer);
 			fscanf(tracklet_file, "%s", szBuffer);
 			_st_Calibration.Tr_imu_to_velo.at<double>(2, 3) = atof(szBuffer);
+			_st_Calibration.Tr_imu_to_velo.at<double>(3, 0) = 0;
+			_st_Calibration.Tr_imu_to_velo.at<double>(3, 1) = 0;
+			_st_Calibration.Tr_imu_to_velo.at<double>(3, 2) = 0;
+			_st_Calibration.Tr_imu_to_velo.at<double>(3, 3) = 1;
 			continue;
 		}
 	}
@@ -317,22 +320,35 @@ cv::Vec3d projectFormula(cv::Vec3d &_unprojectedPt, const st_Calibration &_st_Ca
 	cv::Mat registration_matrix = P * _st_Calibration.R0_Rect* _st_Calibration.Tr_velo_to_cam;
 	cv::Mat proj = (registration_matrix * cv::Mat(cv::Vec4d(_unprojectedPt[0], _unprojectedPt[1], _unprojectedPt[2], 1)));
 	
-	//double x = .25*proj.at<double>(0) / proj.at<double>(2) + 1224/2;
-	//double y = .25*proj.at<double>(1) / proj.at<double>(2) + 370/2;
+	double x = .25*proj.at<double>(0) / proj.at<double>(2) + 1224/2;
+	double y = .25*proj.at<double>(1) / proj.at<double>(2) + 370/2;
 	double z = proj.at<double>(2);
-	double x = proj.at<double>(0) / z;
-	double y = proj.at<double>(1) / z;
-	
-	std::cout <<  x << ", " << y << ", " << z << std::endl;
-	return cv::Vec3d(x, y, 100);
+	//double x = proj.at<double>(0)/z;
+	//double y = proj.at<double>(1)/z; 
+	/*
+	std::cout << "\t" << _unprojectedPt[0] << ",\t\t" << _unprojectedPt[1] << ", \t\t" << _unprojectedPt[2] << std::endl;
+	std::cout << "\t" << x << ",\t\t" << y << ",\t\t" << z << std::endl;
+	std::cout << std::endl;
+	*/
+	return cv::Vec3d(x, y, 100 * z);
 }
 
 void project(const cv::Mat _inputImg[], cv::Mat _projectedImg[], const std::vector<st_Point> &_lidarPoints, const st_Calibration &_st_Calibration) {
 	cv::Vec3d tmp; 
-	_projectedImg[CAMERA::LEFT] = cv::Mat(cv::Size(_inputImg[CAMERA::LEFT].cols, _inputImg[CAMERA::LEFT].rows), CV_8UC1).clone();
+	double x;
+	double y;
+	double z;
+	_projectedImg[CAMERA::LEFT] = cv::Mat(cv::Size(_inputImg[CAMERA::LEFT].cols, _inputImg[CAMERA::LEFT].rows), _inputImg[0].type()).clone();
 	
+	int circle_radius = 1;
 	for (auto &iter : _lidarPoints) {
 		tmp = projectFormula(cv::Vec3d(iter.px, iter.py, iter.pz), _st_Calibration);
+		x = tmp[0];
+		y = tmp[1];
+		z = tmp[2];
+		if (0 <= x && x < _projectedImg[CAMERA::LEFT].cols && 0 <= y  && y < _projectedImg[CAMERA::LEFT].rows && z > 0)
+			//_projectedImg[0].at<float>(y, x) = z;
+			cv::circle(_projectedImg[CAMERA::LEFT], cv::Point(x, y), circle_radius, cv::Scalar(255/z), 1);
 	}
 }
 void project(const cv::Mat &_inputImg, cv::Mat &_projectedImg, const std::vector<st_Point> &_lidarPoints, const st_Calibration &_st_Calibration, cv::Rect imgROI) {
