@@ -320,17 +320,17 @@ cv::Vec3d projectFormula(cv::Vec3d &_unprojectedPt, const st_Calibration &_st_Ca
 	cv::Mat registration_matrix = P * _st_Calibration.R0_Rect* _st_Calibration.Tr_velo_to_cam;
 	cv::Mat proj = (registration_matrix * cv::Mat(cv::Vec4d(_unprojectedPt[0], _unprojectedPt[1], _unprojectedPt[2], 1)));
 	
-	double x = .25*proj.at<double>(0) / proj.at<double>(2) + 1224/2;
-	double y = .25*proj.at<double>(1) / proj.at<double>(2) + 370/2;
+	//double x = .25*proj.at<double>(0) / proj.at<double>(2) + 1224/2;
+	//double y = .25*proj.at<double>(1) / proj.at<double>(2) + 370/2;
 	double z = proj.at<double>(2);
-	//double x = proj.at<double>(0)/z;
-	//double y = proj.at<double>(1)/z; 
+	double x = proj.at<double>(0)/z;
+	double y = proj.at<double>(1)/z; 
 	/*
 	std::cout << "\t" << _unprojectedPt[0] << ",\t\t" << _unprojectedPt[1] << ", \t\t" << _unprojectedPt[2] << std::endl;
 	std::cout << "\t" << x << ",\t\t" << y << ",\t\t" << z << std::endl;
 	std::cout << std::endl;
 	*/
-	return cv::Vec3d(x, y, 100 * z);
+	return cv::Vec3d(x, y, z*100);
 }
 
 void project(const cv::Mat _inputImg[], cv::Mat _projectedImg[], const std::vector<st_Point> &_lidarPoints, const st_Calibration &_st_Calibration) {
@@ -338,18 +338,26 @@ void project(const cv::Mat _inputImg[], cv::Mat _projectedImg[], const std::vect
 	double x;
 	double y;
 	double z;
-	_projectedImg[CAMERA::LEFT] = cv::Mat(cv::Size(_inputImg[CAMERA::LEFT].cols, _inputImg[CAMERA::LEFT].rows), _inputImg[0].type()).clone();
+	_projectedImg[CAMERA::LEFT] = cv::Mat(cv::Size(_inputImg[CAMERA::LEFT].cols, _inputImg[CAMERA::LEFT].rows), cv::DataType<float>::type);
 	
 	int circle_radius = 1;
 	for (auto &iter : _lidarPoints) {
 		tmp = projectFormula(cv::Vec3d(iter.px, iter.py, iter.pz), _st_Calibration);
+		
 		x = tmp[0];
 		y = tmp[1];
 		z = tmp[2];
-		if (0 <= x && x < _projectedImg[CAMERA::LEFT].cols && 0 <= y  && y < _projectedImg[CAMERA::LEFT].rows && z > 0)
-			//_projectedImg[0].at<float>(y, x) = z;
-			cv::circle(_projectedImg[CAMERA::LEFT], cv::Point(x, y), circle_radius, cv::Scalar(255/z), 1);
+
+		int 
+		if (0 <= x && x < _projectedImg[CAMERA::LEFT].cols && 0 <= y  && y < _projectedImg[CAMERA::LEFT].rows && z > 0) {
+			//std::cout << z * 255 / 3500 << std::endl;
+			//std::cout << z << std::endl;
+			_projectedImg[CAMERA::LEFT].at<float>(y, x) = (2000 - z) / 2000;
+		}
+			
+			//cv::circle(_projectedImg[CAMERA::LEFT], cv::Point(x, y), circle_radius, cv::Scalar(z), 1);	
 	}
+	cv::circle(_projectedImg[CAMERA::LEFT], cv::Point(x, y), circle_radius, cv::Scalar(z), 1);
 }
 void project(const cv::Mat &_inputImg, cv::Mat &_projectedImg, const std::vector<st_Point> &_lidarPoints, const st_Calibration &_st_Calibration, cv::Rect imgROI) {
 
