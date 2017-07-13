@@ -32,7 +32,6 @@ void readLidarData(const char *_lidarPATH, const int _frameNum, std::vector<st_P
 	}
 
 	lidarPacketSize = fread(lidarPacket, sizeof(float), lidarPacketSize, lidar_file) / 4;
-	std::cout << lidarPacketSize << std::endl;
 	for (int32_t i = 0; i<lidarPacketSize; i++) {
 		_lidarPoints.push_back(st_Point(*px, *py, *pz, *pr));
 		//std::cout << (float) *px << ", " << *py << ", " << *pz << ", " << *pr << std::endl;
@@ -348,7 +347,7 @@ void project(const cv::Mat _inputImg[], cv::Mat _projectedImg[], const std::vect
 		y = tmp[1];
 		z = tmp[2];
 
-		int 
+		
 		if (0 <= x && x < _projectedImg[CAMERA::LEFT].cols && 0 <= y  && y < _projectedImg[CAMERA::LEFT].rows && z > 0) {
 			//std::cout << z * 255 / 3500 << std::endl;
 			//std::cout << z << std::endl;
